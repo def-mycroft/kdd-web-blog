@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Edit Post{% endblock %}
 {% block body %}
-    <form>
+    <form action="/post/commit-new", method="post">
         <div>
             <input type="text" name="post-title" id="post-title" />
         </div>
