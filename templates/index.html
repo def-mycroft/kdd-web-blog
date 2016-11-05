@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Welcome!!{% endblock %}
 {% block body %}
-    A list of posts will go here.
+    {% for post in posts %}
+        <h1>{{ post.title }}</h1>
+        <div>By {{ post.author_id }} on {{ post.date_created }}</div>
+        <p>{{ post.content }}</p>
+        <hr>
+    {% endfor %}
 {% endblock %}
 

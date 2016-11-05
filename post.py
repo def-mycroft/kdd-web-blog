@@ -1,26 +1,32 @@
 from flask import Blueprint, render_template
+from model import db_funcs, db_connection
 
 post = Blueprint('post', __name__)
 
 
-# Create CRUD method 
 @post.route('/new', methods=['GET'], strict_slashes=False)
 def new_post():
     """Renders form for new post"""
     return render_template('new_or_update_post.html')
 
 
-@post.route('/', methods=['POST'], strict_slashes=False)
-def commit_post(post_id):
-    """Commits a new post to the database"""
-    return redirect('/<int:post_id>')
-
-
-# Read CRUD method.
 @post.route('/', methods=['GET'], strict_slashes=False)
 def show_index():
     """Shows the index page"""
-    return render_template('index.html')
+    # TODO Write a method that gets a list of post rows from the database
+
+    posts = db_funcs.fetch_index_posts()
+    
+    # TODO create a for loop in index.html to fill in the front page
+    return render_template('index.html', posts=posts)
+
+
+@post.route('/', methods=['POST'], strict_slashes=False)
+def commit_post(post_id):
+    """Commits a new post to the database"""
+    # TODO Write a db_Funcs method thae takes post data and commits to database
+    return redirect('/<int:post_id>')
+
 
 @post.route('/<int:post_id>', methods=['GET'], strict_slashes=False)
 def show_or_update_post(post_id):

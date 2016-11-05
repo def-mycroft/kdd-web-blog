@@ -1,32 +1,26 @@
-import db_connection
+from model import db_connection
 
-conn = db_connection.database_connection()
-cur = conn.cursor()
+def fetch_index_posts():
+    """Fetches post data from index page"""
 
-cur.execute('select * from post')
-data = cur.fetchall()
+    conn = db_connection.database_connection()
+    cur = conn.cursor()
 
-print('here is the data')
-print(data)
+    # TODO This is currently displaying the numerical author ID, want to display name instead.
+    # Can probably pull this when creatin dictionarl;
+    # should be able to join this table with the user table and pull it all at once
+
+    cur.execute(
+        """
+        SELECT * FROM post
+        """
+    )
+
+    data = cur.fetchall()
+
+    return rows_to_dicts(data)
 
 
 def rows_to_dicts(rows):
-    # [Row, Row, Row]
-    # row.keys()
-
-    dicts = []
-    for row in rows:
-
-        dicts.append(
-            dict(map(
-                lambda key, value: (key, value),
-                row.keys(), row
-            )
-        ))
-
-    return dicts
-
-print(rows_to_dicts(data))
-
-
-
+    """Takes a list of database rows and converts to a dict"""
+    return list(map(lambda row: dict(zip(row.keys(), row)), rows))
