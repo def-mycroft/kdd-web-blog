@@ -1,8 +1,24 @@
 from model import db_connection
 
+def fetch_a_specific_post(post_id):
+    """Fetches a particular post given a post_id"""
+
+    conn = db_connection.database_connection()
+    cur = conn.cursor()
+
+    cur.execute(
+        """
+        SELECT * FROM post WHERE id=%s
+        """ % post_id
+    )
+
+    data = cur.fetchall()
+
+    return rows_to_dicts(data)[0]
+
+
 def fetch_index_posts():
     """Fetches post data from index page"""
-
     conn = db_connection.database_connection()
     cur = conn.cursor()
 
