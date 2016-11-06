@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect 
-from model import db_funcs, db_connection
+from model import db_connection, post_reads, post_updates
 
 post = Blueprint('post', __name__)
 
@@ -7,14 +7,14 @@ post = Blueprint('post', __name__)
 @post.route('/', methods=['GET'], strict_slashes=False)
 def show_index():
     """Shows the index page"""
-    posts = db_funcs.fetch_index_posts()
+    posts = post_reads.fetch_index_posts()
     return render_template('index.html', posts=posts)
 
 
 @post.route('/<int:post_id>', methods=['GET'], strict_slashes=False)
 def show_individual_post(post_id):
     """Shows an individual post"""
-    post = db_funcs.fetch_a_specific_post(post_id)
+    post = post_reads.fetch_a_specific_post(post_id)
 
     return render_template(
         'post.html',
@@ -36,34 +36,19 @@ def new_post():
 def commit_post():
     """Commits a new post to the database"""
     # TODO it would be nice to direct toward the newly-created post.
-    post_id = db_funcs.commit_new_post()
+    post_id = post_updates.commit_new_post()
     return redirect('post/%s' % post_id)
 
 
 @post.route('/<int:post_id>/edit', methods=['GET'], strict_slashes=False)
 def edit_post(post_id):
     """Renders form for editing a post"""
-    post = db_funcs.fetch_a_specific_post(post_id, edit_mode=True)
+    post = post_reads.fetch_a_specific_post(post_id, edit_mode=True)
     return render_template('new_or_update_post.html', post=post, edit_mode=True)
 
 
 @post.route('/<int:post_id>/edit/', methods=['POST'], strict_slashes=False)
 def commit_post_edits(post_id):
     """Commits edits for a post"""
-    db_funcs.commit_post_edits(post_id)
+    post_updates.commit_post_edits(post_id)
     return redirect('post/%s' % post_id)
-
-
-# I just have this disabled for now because it is throwing error, probably because of ussie with post_id
-# @post.route('/<id:post_id>', methods=['POST'], strict_slashes=False)
-# def commit_post_edits(post_id):
-#     """Commits post edits to database"""
-#     # Take data from html form and update the database accordingly
-#     #return redirect('/<int:post_id>')
-#     # TODO Afer editing post, should show post and not return to homepage.
-#     # going back home for now, want to return to the post after getting databse set up.
-#     return render_tempate('index.html') # go
-
-
-
-
