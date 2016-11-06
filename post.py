@@ -14,16 +14,17 @@ def show_index():
 @post.route('/<int:post_id>', methods=['GET'], strict_slashes=False)
 def show_individual_post(post_id):
     """Shows an individual post"""
-    post = post_reads.fetch_a_specific_post(post_id)
+    data = post_reads.fetch_a_specific_post(post_id)
 
     return render_template(
         'post.html',
-        post_title = post['title'],
-        post_author_id = post['author_id'],
-        post_date_created = post['date_created'],
-        post_content = post['content'],
-        post_id = post['id'],
-        can_edit = post['can_edit']
+        post_title = data['title'],
+        post_author_id = data['author_id'],
+        post_date_created = data['date_created'],
+        post_content = data['content'],
+        post_id = data['id'],
+        can_edit = data['can_edit'],
+        logged_in = data['logged_in']
     )
 
 
