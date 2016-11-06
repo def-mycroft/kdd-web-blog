@@ -62,18 +62,3 @@ def commit_post_edits(post_id):
 def commit_comment(post_id):
     """Commits post comments"""
     return "nothing"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

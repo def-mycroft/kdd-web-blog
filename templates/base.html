@@ -6,6 +6,25 @@
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
+        <hr>
+        <div>
+            <h3>
+                <a href="/post">home</a>
+            </h3>
+            <h3>
+                <a href="/user/signup">signup</a>
+            </h3>
+            <h3>
+                <a href="/session/login">login</a>
+            </h3>
+            <h3>
+                <a href="/session/logout">logout</a>
+            </h3>
+            <h3>
+                <a href="/post/new">new post</a>
+            </h3>
+        </div>
+        <hr>
         {% block body %}{% endblock %}
     </body>
 </html>
