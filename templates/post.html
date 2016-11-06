@@ -6,4 +6,11 @@
         <div>By {{ post_author_id }} on {{ post_date_created }}</div>
         <p>{{ post_content | safe }}</p>
     </div>
+    {% if can_edit %}
+        <div>
+            <form action="{{ post_id }}/edit" method="get">
+                <button type="submit" >Edit this Post</button>
+            </form>
+        </div>
+    {% endif %}
 {% endblock %}

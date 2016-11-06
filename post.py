@@ -18,11 +18,12 @@ def show_individual_post(post_id):
 
     return render_template(
         'post.html',
-        post_title=post['title'],
-        post_author_id=post['author_id'],
-        post_date_created=post['date_created'],
-        post_content=post['content'],
-        edit_mode=False
+        post_title = post['title'],
+        post_author_id = post['author_id'],
+        post_date_created = post['date_created'],
+        post_content = post['content'],
+        post_id = post['id'],
+        can_edit = post['can_edit']
     )
 
 
@@ -35,7 +36,6 @@ def new_post():
 @post.route('/commit-new', methods=['POST'], strict_slashes=False)
 def commit_post():
     """Commits a new post to the database"""
-    # TODO it would be nice to direct toward the newly-created post.
     post_id = post_updates.commit_new_post()
     return redirect('post/%s' % post_id)
 
@@ -44,8 +44,11 @@ def commit_post():
 def edit_post(post_id):
     """Renders form for editing a post"""
     post = post_reads.fetch_a_specific_post(post_id, edit_mode=True)
-    return render_template('new_or_update_post.html', post=post, edit_mode=True)
 
+    if post['can_edit']:
+        return render_template('new_or_update_post.html', post=post, edit_mode=True)
+    else:
+        return redirect('/') # Redirects to home page if user cannot edit.
 
 @post.route('/<int:post_id>/edit/', methods=['POST'], strict_slashes=False)
 def commit_post_edits(post_id):

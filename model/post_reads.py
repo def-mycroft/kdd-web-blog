@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, session
 from model import db_connection, db_helpers
 import markdown
 import time
@@ -13,6 +13,12 @@ def fetch_a_specific_post(post_id, edit_mode=False):
         """, (post_id,)
     )
     data = rows_to_dicts(cur.fetchall())[0]
+
+    # Set edit flag
+    if session['user_id'] == data['author_id']:
+        data['can_edit'] = True
+    else:
+        data['can_edit'] = False
 
     if not edit_mode:
         data['content'] = markdown.markdown(data['content'])
