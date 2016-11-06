@@ -1,15 +1,29 @@
 {% extends "base.html" %}
 {% block title %}Edit Post{% endblock %}
 {% block body %}
-    <form action="/post/commit-new", method="post">
-        <div>
-            <input type="text" name="post-title" id="post-title" />
-        </div>
-        <div>
-            <textarea name="post-content" id="post-content" rows="8" cols="40"></textarea>
-        </div>
-        <div>
-            <button name="submit-post-mod" id-"submit-post-mod" "type="submit">Submit</button>
-        </div>
-    </form>
+    {% if edit_mode %}
+        <form action="/post/{{ post.id }}/edit", method="post">
+            <div>
+                <input type="text" name="post-title" id="post-title" value="{{ post.title }}" />
+            </div>
+            <div>
+                <textarea name="post-content" id="post-content" rows="8" cols="40">{{ post.content }}</textarea>
+            </div>
+            <div>
+                <button name="submit-post-mod" id-"submit-post-mod" "type="submit">Submit</button>
+            </div>
+        </form>
+    {% else %}
+        <form action="/post/commit-new", method="post">
+            <div>
+                <input type="text" name="post-title" id="post-title" />
+            </div>
+            <div>
+                <textarea name="post-content" id="post-content" rows="8" cols="40"></textarea>
+            </div>
+            <div>
+                <button name="submit-post-mod" id-"submit-post-mod" "type="submit">Submit</button>
+            </div>
+        </form>
+    {% endif %}
 {% endblock %}

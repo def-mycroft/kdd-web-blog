@@ -4,6 +4,25 @@ import markdown
 import time
 
 
+def commit_post_edits(post_id):
+    """Commits post edits to database"""
+
+    conn = db_connection.database_connection()
+    cur = conn.cursor()
+
+    title = request.form['post-title']
+    content = request.form['post-content']
+
+    cur.execute(
+        """
+        UPDATE post
+        SET title=?, content=?  WHERE id=?
+        """, (title, content, post_id)
+    )
+
+    conn.commit()
+
+
 def commit_new_post():
     """Commits a new post to the database"""
 
@@ -32,7 +51,7 @@ def commit_new_post():
 
 
 
-def fetch_a_specific_post(post_id):
+def fetch_a_specific_post(post_id, edit_mode=False):
     """Fetches a particular post given a post_id"""
 
     conn = db_connection.database_connection()
@@ -46,8 +65,9 @@ def fetch_a_specific_post(post_id):
 
     data = rows_to_dicts(cur.fetchall())[0]
 
-    data['content'] = markdown.markdown(data['content'])
-    # TODO write function to convert dates and use it here.
+    if not edit_mode:
+        data['content'] = markdown.markdown(data['content'])
+        # TODO write function to convert dates and use it here.
 
     return data
 

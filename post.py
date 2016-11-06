@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect
+from flask import Blueprint, render_template, redirect 
 from model import db_funcs, db_connection
 
 post = Blueprint('post', __name__)
@@ -11,7 +11,7 @@ def show_index():
     return render_template('index.html', posts=posts)
 
 
-@post.route('/<int:post_id>', methods=['get'], strict_slashes=False)
+@post.route('/<int:post_id>', methods=['GET'], strict_slashes=False)
 def show_individual_post(post_id):
     """Shows an individual post"""
     post = db_funcs.fetch_a_specific_post(post_id)
@@ -21,7 +21,8 @@ def show_individual_post(post_id):
         post_title=post['title'],
         post_author_id=post['author_id'],
         post_date_created=post['date_created'],
-        post_content=post['content']
+        post_content=post['content'],
+        edit_mode=False
     )
 
 
@@ -41,10 +42,16 @@ def commit_post():
 
 @post.route('/<int:post_id>/edit', methods=['GET'], strict_slashes=False)
 def edit_post(post_id):
-    """Returns the edit form with post content"""
-    # TODO write function that pulls data from the database and inserts into edit form.
-    # Will need to get data from the database and insert into htmlform 
-    return render_template('new_or_update_post.html')
+    """Renders form for editing a post"""
+    post = db_funcs.fetch_a_specific_post(post_id, edit_mode=True)
+    return render_template('new_or_update_post.html', post=post, edit_mode=True)
+
+
+@post.route('/<int:post_id>/edit/', methods=['POST'], strict_slashes=False)
+def commit_post_edits(post_id):
+    """Commits edits for a post"""
+    db_funcs.commit_post_edits(post_id)
+    return redirect('post/%s' % post_id)
 
 
 # I just have this disabled for now because it is throwing error, probably because of ussie with post_id
