@@ -16,12 +16,16 @@ app.register_blueprint(post, url_prefix='/post')
 def index():
     """Renders the main index page"""
     # TODO could remove session data printout, this is for testing
-    print('#' * 80)
-    print('Session Data:')
-    print('username: %s' % session['username'])
-    print('user_id: %s' % session['user_id'])
-    print('logged_in: %s' % session['logged_in'])
-    print('#' * 80)
+    try:
+        print('#' * 80)
+        print('Session Data:')
+        print('username: %s' % session['username'])
+        print('user_id: %s' % session['user_id'])
+        print('logged_in: %s' % session['logged_in'])
+        print('#' * 80)
+    except KeyError:
+        print('no session data')
+        
     return redirect('/post')
 
 
