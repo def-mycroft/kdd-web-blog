@@ -4,6 +4,7 @@ from user import user
 from session import session
 
 app = Flask(__name__)
+app.secret_key = "topsecret"
 
 app.register_blueprint(user, url_prefix='/user')
 app.register_blueprint(session, url_prefix='/session')
