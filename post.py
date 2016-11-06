@@ -1,3 +1,4 @@
+# TODO Need to create a function to delete a post.
 from flask import Blueprint, render_template, redirect, session
 from model import db_connection, post_reads, post_updates
 
