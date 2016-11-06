@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect 
+from flask import Blueprint, render_template, redirect, session
 from model import db_connection, post_reads, post_updates
 
 post = Blueprint('post', __name__)

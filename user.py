@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, request
 from model import user_db
+from model import session_db
 
 
 user = Blueprint('user', __name__)
@@ -13,9 +14,9 @@ def render_signup():
 
 @user.route('/', methods=['POST'], strict_slashes=False)
 def create_user():
-    """Creates a new user"""
+    """Creates a new user and creates a session for new user"""
     # TODO need to create a new session after the user is created.
-    user_db.commit_user()
+    user_db.commit_user() # Session is created here in user_db
 
     # TODO want to create a landing page for a new user.
     return redirect('/')

@@ -1,5 +1,5 @@
 from flask import request
-from model import db_helpers, db_connection
+from model import db_helpers, db_connection, session_db
 
 def commit_user():
     """Commits a new user to the database"""
@@ -18,6 +18,8 @@ def commit_user():
         """, (username, password, first_name, last_name, email)
     )
     conn.commit()
+
+    session_db.create_session(cur.lastrowid)
 
 
 
