@@ -19,12 +19,10 @@
         <div>
             <h2>Comments</h2>
             <h3>Leave a comment</h3>
-            <form>
-                <textarea name="comment-content" id="comment-content" rows="8" cols="40"></textarea>
-                <div>
-                    <button name="submit-comment" post-id="{{ post_id }}" method="post">Send a post request to post comment.</button>
-                </div>
-            </form>
+            <textarea name="comment-content" id="comment-content" rows="8" cols="40"></textarea>
+            <div>
+                <button name="submit-comment" post-id="{{ post_id }}" method="post">Send a post request to post comment.</button>
+        </div>
             <hr>
         </div>
     {% else %}
