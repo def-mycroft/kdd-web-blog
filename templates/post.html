@@ -14,29 +14,35 @@
         </div>
     {% endif %}
     {% if logged_in %}
+        <!-- If the user is logged in -->
         <div>
             <h2>Comments</h2>
             <h3>Leave a comment</h3>
-            <form action="/" method="post">
+            <form>
+                <script src="/static/js/newcomment.js" type="text/javascript" charset="uft-8"></script>
                 <textarea name="comment-content" id="comment-content" rows="8" cols="40"></textarea>
                 <div>
-                    <button type="submit">Leave a Comment</button>
+                    <button name="submit-comment" post-id="{{ post_id }}" method="post">Send a post request to post comment.</button>
                 </div>
             </form>
             <hr>
         </div>
     {% else %}
+        <!-- If the user is not logged in -->
         <div>
             <form action="/session/login" method="get">
                 <button type="submit">Login to Comment!</button>
             </form>
         </div>
     {% endif %}
-   <div>
+    <div id="comment-box">
+        <!-- Show comments regardless of whether or not user is logged in -->
        {% for comment in comments  %}
-            <div>By {{ comment.author_id }} on {{ comment.date_created }}</div>
-            <p>{{ comment.content | safe }}</p>
-            <hr>
+           <div name="comment-box" id="comment-box">
+               <div>By {{ comment.author_id }} on {{ comment.date_created }}</div>
+               <p>{{ comment.content | safe }}</p>
+               <hr>
+           </div>
        {% endfor %}
    </div> 
 {% endblock %}

@@ -14,7 +14,11 @@ def fetch_a_specific_post(post_id, edit_mode=False):
     )
     data = rows_to_dicts(cur.fetchall())[0]
 
-    data['logged_in'] = session['logged_in']
+    try:
+        data['logged_in'] = session['logged_in']
+    except KeyError:
+        data['logged_in'] = False
+        session['user_id'] = 0
 
     # Set edit flag
     if session['user_id'] == data['author_id'] and data['logged_in']:

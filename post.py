@@ -1,5 +1,5 @@
 # TODO Need to create a function to delete a post.
-from flask import Blueprint, render_template, redirect, session
+from flask import Blueprint, render_template, redirect, session, jsonify
 from model import db_connection, post_reads, post_updates
 
 post = Blueprint('post', __name__)
@@ -10,6 +10,13 @@ def show_index():
     """Shows the index page"""
     posts = post_reads.fetch_index_posts()
     return render_template('index.html', posts=posts)
+
+
+@post.route('/<int:post_id>/comment', methods=['POST'], strict_slashes=False)
+def new_comment(post_id):
+    """Commits a new comment to the database"""
+    print('hello from post comment function')
+    return jsonify({'data': 'comment data'})
 
 
 @post.route('/<int:post_id>', methods=['GET'], strict_slashes=False)
