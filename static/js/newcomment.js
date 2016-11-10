@@ -2,8 +2,7 @@ $(document).ready(function() {
     $("#submit-comment").click(function() {
         $.ajax({
             method: "POST",
-            //url: "/post/" + $(this).attr("post-id") + "/comment",
-            url: "/post/1/comment",
+            url: "/post/" + $("#comment-box").attr("postid") + "/comment",
             data: { 
                 commentcontent: $("#comment-content").val(),
             },
