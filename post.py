@@ -16,7 +16,7 @@ def show_index():
 def new_comment(post_id):
     """Commits a new comment to the database"""
     print('hello from post comment function')
-    return jsonify({'data': 'comment data'})
+    return "this value is returned"
 
 
 @post.route('/<int:post_id>', methods=['GET'], strict_slashes=False)
@@ -34,8 +34,7 @@ def show_individual_post(post_id):
         can_edit = data['can_edit'],
         logged_in = data['logged_in'],
         # Includes script in base.html
-        optional = "this is is the optional text"
-        #optional = """<script src="/static/js/newcomment.js" type="text/javascript" charset="uft-8"></script>"""
+        optional = """<script src="/static/js/newcomment.js" type="text/javascript" charset="uft-8"></script>"""
     )
 
 

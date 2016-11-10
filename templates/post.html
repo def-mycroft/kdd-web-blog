@@ -2,46 +2,10 @@
 {% set optional = optional %}
 {% block title %}{{ post_title }}{% endblock %}
 {% block body %}
-    <script src="/static/js/newcomment.js" type="text/javascript" charset="uft-8"></script>
-    <div>
-        <h1>{{ post_title }}</h1>
-        <div>By {{ post_author_id }} on {{ post_date_created }}</div>
-        <p>{{ post_content | safe }}</p>
+    <textarea name="comment-content" id="comment-content" rows="8" cols="40"></textarea>
+    <button name="submit-comment" id="submit-comment" type="submit" >Submit Button</button>
+    <div name="comment-box" id="comment-box" post-id="1">
+        <p>div tags</p>
     </div>
-    {% if can_edit %}
-        <div>
-            <form action="{{ post_id }}/edit" method="get">
-                <button type="submit" >Edit this Post</button>
-            </form>
-        </div>
-    {% endif %}
-    {% if logged_in %}
-        <!-- If the user is logged in -->
-        <div>
-            <h2>Comments</h2>
-            <h3>Leave a comment</h3>
-            <textarea name="comment-content" id="comment-content" rows="8" cols="40"></textarea>
-            <div>
-                <button name="submit-comment" post-id="{{ post_id }}" method="post">Send a post request to post comment.</button>
-        </div>
-            <hr>
-        </div>
-    {% else %}
-        <!-- If the user is not logged in -->
-        <div>
-            <form action="/session/login" method="get">
-                <button type="submit">Login to Comment!</button>
-            </form>
-        </div>
-    {% endif %}
-    <div id="comment-box">
-        <!-- Show comments regardless of whether or not user is logged in -->
-       {% for comment in comments  %}
-           <div name="comment-box" id="comment-box">
-               <div>By {{ comment.author_id }} on {{ comment.date_created }}</div>
-               <p>{{ comment.content | safe }}</p>
-               <hr>
-           </div>
-       {% endfor %}
-   </div> 
 {% endblock %}
+
