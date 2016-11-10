@@ -32,7 +32,10 @@ def show_individual_post(post_id):
         post_content = data['content'],
         post_id = data['id'],
         can_edit = data['can_edit'],
-        logged_in = data['logged_in']
+        logged_in = data['logged_in'],
+        # Includes script in base.html
+        optional = "this is is the optional text"
+        #optional = """<script src="/static/js/newcomment.js" type="text/javascript" charset="uft-8"></script>"""
     )
 
 
