@@ -15,8 +15,11 @@ def show_index():
 @post.route('/<int:post_id>/comment', methods=['POST'], strict_slashes=False)
 def new_comment(post_id):
     """Commits a new comment to the database and displays"""
-    comment = request.form['commentcontent']
-    return comment
+    print('hello from new_comment in post')
+    author_id = session['user_id']
+    content = request.form['comment_content']
+    post_updates.commit_new_comment(author_id, post_id, content)
+    return content
 
 
 @post.route('/<int:post_id>', methods=['GET'], strict_slashes=False)

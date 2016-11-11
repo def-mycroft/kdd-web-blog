@@ -4,6 +4,18 @@ import markdown
 import time
 
 
+def commit_new_comment(author_id, post_id, content):
+    """Commits a new comment to the database"""
+    print('hello from commit new comment in model')
+    conn, cur = db_helpers.create_connection()
+    cur.execute(
+        """
+        INSERT INTO comment (author_id, post_id, date_created, content)
+        VALUES(?, ?, ?, ?)
+        """, (author_id, post_id, int(time.time()), content)
+    )
+    conn.commit()
+
 def commit_post_edits(post_id):
     """Commits post edits to database"""
     conn, cur = db_helpers.create_connection()
