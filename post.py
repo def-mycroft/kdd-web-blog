@@ -9,6 +9,7 @@ post = Blueprint('post', __name__)
 @post.route('/', methods=['GET'], strict_slashes=False)
 def show_index():
     """Shows the index page"""
+    # TODO posts need to be organized newest to oldest on the index page.
     posts = post_reads.fetch_index_posts()
     return render_template('index.html', posts=posts)
 
