@@ -1,6 +1,7 @@
 # TODO Need to create a function to delete a post.
 from flask import Blueprint, render_template, redirect, session, jsonify, request
 from model import db_connection, post_reads, post_updates
+import time
 
 post = Blueprint('post', __name__)
 
@@ -18,13 +19,22 @@ def new_comment(post_id):
     author_id = session['user_id']
     content = request.form['comment_content']
     post_updates.commit_new_comment(author_id, post_id, content)
-    return content
+    # TODO convert time inte human readable time.
+    # TODO convert content into html from markdown - wil have to do this here
+    date = int(time.time())
+    return render_template(
+        'new_comment.html', 
+        author_name=session['username'], 
+        date_created=date, 
+        content=content
+    )
 
 
 @post.route('/<int:post_id>', methods=['GET'], strict_slashes=False)
 def show_individual_post(post_id):
     """Shows an individual post"""
     data, comments = post_reads.fetch_a_specific_post(post_id)
+    # TODO ccomments are being shown backwards, need to sort by date posted
 
     return render_template(
         'post.html',

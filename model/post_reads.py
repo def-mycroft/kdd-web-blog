@@ -22,6 +22,7 @@ def fetch_post_comments(post_id):
 def fetch_post_content(post_id, edit_mode=False):
     """Fetches a particular post given a post_id"""
     conn, cur = db_helpers.create_connection()
+    # TODO there needs to be a jion here to get the username from the user table
     cur.execute(
         """
         SELECT * FROM post WHERE id=?
