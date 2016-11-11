@@ -3,11 +3,43 @@
 {% block title %}{{ post_title }}{% endblock %}
 {% block body %}
     <div>
-        <textarea name="comment-content" id="comment-content" rows="8" cols="40"></textarea>
+        <h1>{{ post_title }}</h1>
+        <div>By {{ post_author }} on {{ post_date_created }}</div>
+        <div><p>{{ post_content | safe }}</p></div>
     </div>
-    <button name="submit-comment" id="submit-comment" type="submit" >Submit Button</button>
+    <div>
+        {% if can_edit %}
+            <div>
+                <form action="" method="post">
+                   <button type="submit">Edit this post</button> 
+                </form>
+            </div>
+        {% endif %}
+    </div>
+    <div>
+        {% if logged_in %}
+            <!--If the user is logged in, show the comment box and submit button.-->
+            <div>
+                <div>
+                    <textarea name="comment-content" id="comment-content" rows="8" cols="40"></textarea>
+                </div>
+                <button name="submit-comment" id="submit-comment" type="submit" >Submit Button</button>
+            </div>
+        {% else %}
+            <!--
+                Else, (the user is not logged in,) show a button to the login page.
+                # TODO It would be nice to redirect back to this page when logging
+                in for the purpose of making a comment.
+            -->
+            <div>
+                <form action="/session/login" method="get">
+                   <button type="submit">Login to comment!</button> 
+                </form>
+            </div>
+        {% endif %}
+    </div>
     <div postid="1" name="comment-box" id="comment-box" >
-        <p>div tags</p>
+        <p>Comment display goes here.</p>
     </div>
 {% endblock %}
 
