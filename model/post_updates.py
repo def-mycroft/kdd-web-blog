@@ -6,7 +6,6 @@ import time
 
 def commit_new_comment(author_id, post_id, content):
     """Commits a new comment to the database"""
-    print('hello from commit new comment in model')
     conn, cur = db_helpers.create_connection()
     cur.execute(
         """

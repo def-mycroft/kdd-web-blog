@@ -39,7 +39,16 @@
         {% endif %}
     </div>
     <div postid="1" name="comment-box" id="comment-box" >
-        <p>Comment display goes here.</p>
+        {% for comment in comments  %}
+           <div>
+              <div>
+                  By {{ comment.author_name }} on {{ comment.date_created }}
+              </div> 
+              <div>
+                  <p>{{ comment.content | safe }}</p>
+              </div>
+           </div> 
+        {% endfor %}
     </div>
 {% endblock %}
 

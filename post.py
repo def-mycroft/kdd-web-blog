@@ -15,7 +15,6 @@ def show_index():
 @post.route('/<int:post_id>/comment', methods=['POST'], strict_slashes=False)
 def new_comment(post_id):
     """Commits a new comment to the database and displays"""
-    print('hello from new_comment in post')
     author_id = session['user_id']
     content = request.form['comment_content']
     post_updates.commit_new_comment(author_id, post_id, content)
@@ -25,7 +24,7 @@ def new_comment(post_id):
 @post.route('/<int:post_id>', methods=['GET'], strict_slashes=False)
 def show_individual_post(post_id):
     """Shows an individual post"""
-    data = post_reads.fetch_a_specific_post(post_id)
+    data, comments = post_reads.fetch_a_specific_post(post_id)
 
     return render_template(
         'post.html',
@@ -36,6 +35,7 @@ def show_individual_post(post_id):
         post_id = data['id'],
         can_edit = data['can_edit'],
         logged_in = data['logged_in'],
+        comments = comments,
         # Includes script in base.html
         optional = """<script src="/static/js/newcomment.js" type="text/javascript" charset="uft-8"></script>"""
     )
