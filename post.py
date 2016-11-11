@@ -15,8 +15,7 @@ def show_index():
 @post.route('/<int:post_id>/comment', methods=['POST'], strict_slashes=False)
 def new_comment(post_id):
     """Commits a new comment to the database and displays"""
-    comment = request.args.get('data')
-    print(comment)
+    comment = request.form['commentcontent']
     return comment
 
 
@@ -67,9 +66,3 @@ def commit_post_edits(post_id):
     """Commits edits for a post"""
     post_updates.commit_post_edits(post_id)
     return redirect('post/%s' % post_id)
-
-
-@post.route('/<int:post_id>/comment', methods=['POST'], strict_slashes=False)
-def commit_comment(post_id):
-    """Commits post comments"""
-    return "nothing"

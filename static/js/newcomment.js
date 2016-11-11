@@ -4,7 +4,7 @@ $(document).ready(function() {
             method: "POST",
             url: "/post/" + $("#comment-box").attr("postid") + "/comment",
             data: { 
-                commentcontent: $("#comment-content").val(),
+                commentcontent: $("#comment-content").val()
             },
             success: function(data) {
                 $("#comment-content").val("");
