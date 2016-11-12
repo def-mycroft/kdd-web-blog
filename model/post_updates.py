@@ -12,6 +12,11 @@ def delete_post(post_id):
         DELETE FROM post WHERE id=?
         """, (post_id,)
     )
+    cur.execute(
+        """
+        DELETE FROM comment WHERE post_id=2
+        """
+    )
     conn.commit()
 
 

@@ -10,7 +10,7 @@
     <div>
         {% if post.can_edit %}
             <div>
-                <form action="post/{{ post.id }}/delete" method="get">
+                <form action="/post/{{ post.id }}/delete" method="get">
                    <button type="submit">Delete this post (No Mercy!!)</button> 
                 </form>
             </div>
