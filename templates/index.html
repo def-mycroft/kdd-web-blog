@@ -5,7 +5,7 @@
         <h1>
             <a href="/post/{{ post.id }}">{{ post.title }}</a>
         </h1>
-        <div>By {{ post.author_id }} on {{ post.date_created }}</div>
+        <div>By {{ post.username }} on {{ post.date_created }}</div>
         <p>{{ post.content | safe }}</p>
         <hr>
     {% endfor %}

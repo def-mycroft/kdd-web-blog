@@ -6,28 +6,34 @@ import time
 
 def fetch_post_comments(post_id):
     """Fetches a dict of comments for a post"""
-    # TODO May be able to use a join here, doing it the wrong way for now
     conn, cur = db_helpers.create_connection()
     cur.execute(
         """
-        SELECT * FROM comment WHERE post_id=?
+        SELECT comment.*, user.username FROM comment
+        INNER JOIN
+        user ON comment.author_id=user.id WHERE comment.post_id=?
         """, (post_id,)
     )
 
-    # TODO comment post dates need dto be convered into human readable form.
+    data = rows_to_dicts(cur.fetchall())
 
-    return cur.fetchall()
+    for row in data:
+        row['date_created'] = db_helpers.convert_time(row['date_created'])
+
+    return sorted(data, key = lambda x: x['date_created'], reverse=True)
 
 
 def fetch_post_content(post_id, edit_mode=False):
     """Fetches a particular post given a post_id"""
     conn, cur = db_helpers.create_connection()
-    # TODO there needs to be a jion here to get the username from the user table
     cur.execute(
         """
-        SELECT * FROM post WHERE id=?
+        SELECT post.*, user.username FROM post
+        INNER JOIN
+        user ON post.author_id=user.id WHERE post.id=?
         """, (post_id,)
     )
+
     data = rows_to_dicts(cur.fetchall())[0]
 
     try:
@@ -44,7 +50,7 @@ def fetch_post_content(post_id, edit_mode=False):
 
     if not edit_mode:
         data['content'] = markdown.markdown(data['content'])
-        # TODO write function to convert dates and use it here.
+        data['date_created'] = db_helpers.convert_time(data['date_created'])
 
     return data
 
@@ -61,19 +67,18 @@ def fetch_a_specific_post(post_id, edit_mode=False):
 def fetch_index_posts():
     """Fetches post data from index page"""
     conn, cur = db_helpers.create_connection()
-    # TODO This is currently displaying the numerical author ID, want to display name instead.
-    # Can probably pull this when creatin dictionarl;
-    # should be able to join this table with the user table and pull it all at once
     cur.execute(
         """
-        SELECT * FROM post
+        SELECT post.*, user.username FROM post
+        INNER JOIN
+        user ON post.author_id=user.id
         """
     )
     data = rows_to_dicts(cur.fetchall())
 
     for post in data:
         post['content'] = markdown.markdown(post['content'])
-        # TODO write function to convert dates and use it here.
+        post['date_created'] = db_helpers.convert_time(post['date_created'])
 
     return data
 

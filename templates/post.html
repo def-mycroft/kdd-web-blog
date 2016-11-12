@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% set optional = optional %}
-{% block title %}{{ post_title }}{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
 {% block body %}
     <div>
-        <h1>{{ post_title }}</h1>
-        <div>By {{ post_author }} on {{ post_date_created }}</div>
-        <div><p>{{ post_content | safe }}</p></div>
+        <h1>{{ post.title }}</h1>
+        <div>By {{ post.username }} on {{ post.date_created }}</div>
+        <div><p>{{ post.content | safe }}</p></div>
     </div>
     <div>
-        {% if can_edit %}
+        {% if post.can_edit %}
             <div>
                 <form action="" method="post">
                    <button type="submit">Edit this post</button> 
@@ -17,7 +17,7 @@
         {% endif %}
     </div>
     <div>
-        {% if logged_in %}
+        {% if post.logged_in %}
             <!--If the user is logged in, show the comment box and submit button.-->
             <div>
                 <div>

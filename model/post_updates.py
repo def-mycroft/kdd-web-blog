@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, session
 from model import db_connection, db_helpers
 import markdown
 import time
@@ -36,9 +36,7 @@ def commit_new_post():
         """
         INSERT INTO post (title, content, date_created, author_id)
         VALUES(?,?,?,?)
-        """, (title, content, int(time.time()), 1)
-        # TODO I have the author id set to 1 for testing, will need
-        # to pull the actual author id from the session later.
+        """, (title, content, int(time.time()), session['user_id'])
     )
     conn.commit()
     post_id = cur.lastrowid
