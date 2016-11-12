@@ -4,6 +4,17 @@ import markdown
 import time
 
 
+def delete_post(post_id):
+    """Delete a post"""
+    conn, cur = db_helpers.create_connection()
+    cur.execute(
+        """
+        DELETE FROM post WHERE id=?
+        """, (post_id,)
+    )
+    conn.commit()
+
+
 def commit_new_comment(author_id, post_id, content):
     """Commits a new comment to the database"""
     conn, cur = db_helpers.create_connection()
@@ -14,6 +25,7 @@ def commit_new_comment(author_id, post_id, content):
         """, (author_id, post_id, int(time.time()), content)
     )
     conn.commit()
+
 
 def commit_post_edits(post_id):
     """Commits post edits to database"""

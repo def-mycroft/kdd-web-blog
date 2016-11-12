@@ -16,8 +16,6 @@ def database_connection():
     if not database_exists:
         create_database.create_database(db_conn)
 
-    # TODO I don't know what this rowfactor thing does. May want to start usin
-    # this and do some researcjj
     db_conn.row_factory = sqlite3.Row
 
     return db_conn

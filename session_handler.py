@@ -15,7 +15,6 @@ def render_login():
 def verify_login():
     """Checks login data"""
     success = session_db.verify_login()
-    # TODO display an error message on login screen if login is faulty.
     if success:
         return redirect('/')
     else:

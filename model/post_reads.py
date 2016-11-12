@@ -58,10 +58,10 @@ def fetch_post_content(post_id, edit_mode=False):
 def fetch_a_specific_post(post_id, edit_mode=False):
     """Fetches post content and comments for a post"""
 
-    data = fetch_post_content(post_id, edit_mode)
+    post = fetch_post_content(post_id, edit_mode)
     comments = fetch_post_comments(post_id)
 
-    return data, comments
+    return post, comments
 
 
 def fetch_index_posts():
@@ -80,7 +80,7 @@ def fetch_index_posts():
         post['content'] = markdown.markdown(post['content'])
         post['date_created'] = db_helpers.convert_time(post['date_created'])
 
-    return data
+    return sorted(data, key = lambda x: x['date_created'], reverse=True)
 
 
 def rows_to_dicts(rows):

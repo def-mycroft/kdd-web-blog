@@ -15,10 +15,7 @@ def render_signup():
 @user.route('/', methods=['POST'], strict_slashes=False)
 def create_user():
     """Creates a new user and creates a session for new user"""
-    # TODO need to create a new session after the user is created.
-    user_db.commit_user() # Session is created here in user_db
-
-    # TODO want to create a landing page for a new user.
+    user_db.commit_user() # Session is created in user_db
     return redirect('/')
 
 

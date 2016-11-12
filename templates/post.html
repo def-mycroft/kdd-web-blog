@@ -10,7 +10,12 @@
     <div>
         {% if post.can_edit %}
             <div>
-                <form action="" method="post">
+                <form action="post/{{ post.id }}/delete" method="get">
+                   <button type="submit">Delete this post (No Mercy!!)</button> 
+                </form>
+            </div>
+            <div>
+                <form action="/post/{{ post.id }}/edit" method="get">
                    <button type="submit">Edit this post</button> 
                 </form>
             </div>
@@ -28,8 +33,6 @@
         {% else %}
             <!--
                 Else, (the user is not logged in,) show a button to the login page.
-                # TODO It would be nice to redirect back to this page when logging
-                in for the purpose of making a comment.
             -->
             <div>
                 <form action="/session/login" method="get">
