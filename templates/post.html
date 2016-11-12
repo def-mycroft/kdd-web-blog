@@ -28,7 +28,7 @@
                 <div>
                     <textarea name="comment-content" id="comment-content" rows="8" cols="40"></textarea>
                 </div>
-                <button name="submit-comment" id="submit-comment" type="submit" >Submit Button</button>
+                <button name="submit-comment" id="submit-comment" type="submit" >Submit Comment</button>
             </div>
         {% else %}
             <!--
@@ -42,14 +42,15 @@
         {% endif %}
     </div>
     <div>
+        <hr>
         <h2>View Comments</h2>
     </div>
-    <div postid="1" name="comment-box" id="comment-box" >
+    <div postid="{{ post.id }}" name="comment-box" id="comment-box" >
         {% for comment in comments  %}
            <div>
                <hr>
               <div>
-                  By {{ comment.author_name }} on {{ comment.date_created }}
+                  By {{ comment.username }} on {{ comment.date_created }}
               </div> 
               <div>
                   <p>{{ comment.content | safe }}</p>
