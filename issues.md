@@ -1,4 +1,4 @@
-
+\# TODO Comments don't delete correctly. 
 \# TODO Display an error message if the login is unsuccessful.
 \# TODO Ability to delete a post needs to be better gated - currently anyone.
 \# TODO Markdown for comments is a reasonable feature.
