@@ -1,0 +1,1 @@
+Website built as training exercise at Laboratory for Knowledge Discovery in Databases at Kansas State University. Uses Python Flask, SQLite and Kickstart HTML framework to create a web blog. Includes posting, commenting and user account management functions. 
